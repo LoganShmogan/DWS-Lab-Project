@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build:css": "tailwindcss -i ./public/css/style.css -o ./public/css/output.css --watch"
   },
   "keywords": [],
   "author": "Logan Graene Young",
   "license": "ISC",
-  "description": "Lab project for Dynamic Web Solutions class"
+  "description": "Lab project for Dynamic Web Solutions class",
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "nodemon": "^3.1.7"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
 }
