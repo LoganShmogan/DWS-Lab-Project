@@ -1,4 +1,4 @@
-#### Lab App
+# Lab App
 This is a web application built using **Express.js** as the backend framework, **Handlebars** for templating, and **TailwindCSS** for styling. It demonstrates a simple but dynamic structure with category filtering, reusable layouts, and server-side rendering.
 
 ## Features
