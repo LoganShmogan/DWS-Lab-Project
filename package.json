@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "Lab project for Dynamic Web Solutions class",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.1",
