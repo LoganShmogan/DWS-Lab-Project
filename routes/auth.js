@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
+const Item = require('../models/Item');
 
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
@@ -9,6 +11,22 @@ const isAuthenticated = (req, res, next) => {
         res.redirect('/login');
     }
 };
+
+// Register route (GETt)
+router.get("/register", (req, res) => {
+    res.render("register", { layout: false, title: "Register"});
+});
+
+// Register route (post)
+router.post('/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        await User.create({ username, password });
+        res.redirect('/login');
+    } catch (error) {
+        res.render('register', { layout: 'auth', title: "Register", error: error.message });
+    }
+});
 
 //Login route (GET)
 router.get('/login', (req, res) => {

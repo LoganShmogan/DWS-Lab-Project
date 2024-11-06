@@ -609,6 +609,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -649,6 +653,10 @@ video {
 
 .rounded {
   border-radius: 0.25rem;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .bg-gray-100 {
