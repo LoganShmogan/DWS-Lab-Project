@@ -34,24 +34,39 @@ router.get('/login', (req, res) => {
 });
 
 // Login route (POST)
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ where: { username }});
 
-    if (username === 'admin' && password === 'password') {
-        req.session.user = username;
-        res.redirect('/dashboard');
-    } else {
-        res.send('Invalid credentials. Please <a href="/login">try again</a>.');
+        if (user && await user.validPassword(password)) {
+            req.session.user = user.usesrname;
+            res.redirect('/dashboard');
+        } else {
+            res.render('login', { layout: 'auth', title: "Login", error: 'Invalid Credentials'});
+        }
+    } catch (error) {
+        res.render('login', { layout: 'auth', title: "Login", error: error.message});
     }
 });
 
 // Dashboard route (protected)
-router.get('/dashboard', isAuthenticated, (req, res) => {
-    res.render('dashboard', {
-        user: req.session.user, // Pass loggin in user
-        layout: false,
-        title: "Dashboard"
-    }); 
+router.get('/dashboard', isAuthenticated, async (req, res) => {
+    try {
+        const items = await Item.findAll({
+            limit: 10,
+            order: [['id', 'DESC']]
+        });
+
+        res.render("dashboard", {
+            layout: "dashboard",
+            title: "Dashboard Items",
+            items: items.map((item) => item.get({ plain: true })),
+        });
+    } catch (error) {
+        console.error("error fetching data:", error);
+        res.status(500).send("an error occured while fetching data")
+    }
 });
 
 module.exports = router;
