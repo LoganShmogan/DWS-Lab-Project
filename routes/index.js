@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
         res.render("home", {
             layout: "main",
             title: "Home",
-            items: item.map(item => item.get({ plain: true })), // COnvert sequelize instances to plain objects
+            items: items.map(item => item.get({ plain: true })), // COnvert sequelize instances to plain objects
             categories: categories
         });
     } catch (error) {
