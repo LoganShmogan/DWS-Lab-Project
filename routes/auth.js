@@ -1,5 +1,5 @@
 const express = require('express');
-const router = expresss.Router();
+const router = express.Router();
 
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
