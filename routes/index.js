@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     try {
         const items = await Item.findAll();
         const distinctCategories = await dbConnection.query(
-            "SELECT DISTINCT category FROM Items",
+            "SELECT DISTINCT category FROM items",
             { type: QueryTypes.SELECT}
         );
         const categories = ['ALL', ...distinctCategories.map(item => item.category)];

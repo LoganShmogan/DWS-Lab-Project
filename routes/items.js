@@ -14,14 +14,14 @@ router.get("/filter/:category", async (req, res) => {
         if (category === "ALL") {
             items = await Item.findAll();
         } else {
-            item = await Item.findAll({ where: { category }});
+            items = await Item.findAll({ where: { category }});
         }
 
         const plainItems = items.map(item => item.get({ plain: true }));
 
         // Retrieve distinct categpries
         const distinctCategories = await dbConnection.query(
-            "SELECT DISTINCT category FROM items",
+            "SELECT DISTINCT category FROM Items",
             { type: QueryTypes.SELECT }
         );
 
