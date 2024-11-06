@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
         await User.create({ username, password });
         res.redirect('/login');
     } catch (error) {
-        res.render('register', { layout: 'main', title: "Register", error: error.message });
+        res.render('register', { layout: 'auth', title: "Register", error: error.message });
     }
 });
 
@@ -43,10 +43,10 @@ router.post('/login', async (req, res) => {
             req.session.user = user.usesrname;
             res.redirect('/dashboard');
         } else {
-            res.render('login', { layout: 'main', title: "Login", error: 'Invalid Credentials'});
+            res.render('login', { layout: 'auth', title: "Login", error: 'Invalid Credentials'});
         }
     } catch (error) {
-        res.render('login', { layout: 'main', title: "Login", error: error.message});
+        res.render('login', { layout: 'auth', title: "Login", error: error.message});
     }
 });
 
