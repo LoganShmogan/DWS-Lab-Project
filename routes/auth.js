@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
         await User.create({ username, password });
         res.redirect('/login');
     } catch (error) {
-        res.render('register', {layout: "auth", title: "Register", error: error.message });
+        res.render('register', {layout: "main", title: "Register", error: error.message });
     }
 });
 
@@ -38,15 +38,22 @@ router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ where: { username }});
+        console.log("user found", user);
 
         if (user && await user.validPassword(password)) {
-            req.session.user = user.usesrname;
+            console.log("User verified redirecting...");
+            req.session.user = user.username;
+            console.log("session user is current user");
             res.redirect('/dashboard');
-        } else {layout: "auth",
-            res.render('login', { layout: "auth", title: "Login", error: 'Invalid Credentials'});
+
+        } else {layout: "main",
+            console.log("User not verifiedm redirecting to login");
+            res.render('login', { layout: "main", title: "Login", error: 'Invalid Credentials'});
+
         }
     } catch (error) {
-        res.render('login', { layout: "auth", title: "Login", error: error.message});
+        console.log("Error during login:", error);
+        res.render('login', { layout: "main", title: "Login", error: error.message});
     }
 });
 

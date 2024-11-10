@@ -28,7 +28,12 @@ const User = dbConnection.define('User', {
 });
 
 User.prototype.validPassword = async function(password) {
-    return await bcrypt.compare(password, this.password);
+    if (bcrypt.compare(password, this.password)) {
+        console.log("Password Compared successfully");
+        return await bcrypt.compare(password, this.password);
+    } else {
+        console.log("Password not compared error");
+    }
 };
 
 module.exports = User;
