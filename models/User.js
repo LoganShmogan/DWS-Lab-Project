@@ -21,6 +21,7 @@ const User = dbConnection.define('User', {
     timestamps: false, // This line disables the automatic timestamp fields
     hooks: {
         beforeCreate: async (user) => {
+            console.log("Hashing password for:", user.username);
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(user.password, salt);
         }

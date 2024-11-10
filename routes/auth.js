@@ -3,6 +3,22 @@ const router = express.Router();
 const User = require('../models/User');
 const Item = require('../models/Item');
 
+            // Testing
+            (async () => {
+                const bcrypt = require('bcrypt');
+                const testPassword = "password";
+                const testHash = await bcrypt.hash(testPassword, 10);
+                console.log("Test hash for 'password':", testHash);
+
+
+                const storedHash = "$2b$10$sLr0T0F2bX8hh3ykbPtqleU41lGPJpinSBuNfrtY0tba6yz6"; // hash from database
+                const password = "password"; // plain password
+                const match = await bcrypt.compare(password, storedHash);
+                console.log("Password matches:", match); // Should print true if valid
+
+            })();
+            // end of testing
+
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
