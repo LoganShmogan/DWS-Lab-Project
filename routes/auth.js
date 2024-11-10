@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
         if (user && await user.validPassword(password)) {
             req.session.user = user.usesrname;
             res.redirect('/dashboard');
-        } else {
+        } else {layout: "auth",
             res.render('login', { layout: "auth", title: "Login", error: 'Invalid Credentials'});
         }
     } catch (error) {
