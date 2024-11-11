@@ -4,19 +4,16 @@ const User = require('../models/User');
 const Item = require('../models/Item');
 
             // Testing
-            (async () => {
-                const bcrypt = require('bcrypt');
-                const testPassword = "password";
-                const testHash = await bcrypt.hash(testPassword, 10);
-                console.log("Test hash for 'password':", testHash);
-
-
-                const storedHash = "$2b$10$sLr0T0F2bX8hh3ykbPtqleU41lGPJpinSBuNfrtY0tba6yz6"; // hash from database
-                const password = "password"; // plain password
-                const match = await bcrypt.compare(password, storedHash);
-                console.log("Password matches:", match); // Should print true if valid
-
-            })();
+            // (async () => {
+            //     const bcrypt = require('bcrypt');
+            //     const testPassword = "password";
+            //     const testHash = await bcrypt.hash(testPassword, 10);
+            //     console.log("Test hash for 'password':", testHash);
+            //     const storedHash = "$2b$10$sLr0T0F2bX8hh3ykbPtqleU41lGPJpinSBuNfrtY0tba6yz6"; // hash from database
+            //     const password = "password"; // plain password
+            //     const match = await bcrypt.compare(password, storedHash);
+            //     console.log("Password matches:", match); // Should print true if valid
+            // })();
             // end of testing
 
 // Authentication middleware
@@ -63,7 +60,7 @@ router.post('/login', async (req, res) => {
             res.redirect('/dashboard');
 
         } else {layout: "main",
-            console.log("User not verifiedm redirecting to login");
+            console.log("User not verified redirecting to login");
             res.render('login', { layout: "main", title: "Login", error: 'Invalid Credentials'});
 
         }
