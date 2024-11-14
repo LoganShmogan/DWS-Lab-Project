@@ -55,17 +55,21 @@ router.post('/login', async (req, res) => {
 
         if (user && await user.validPassword(password)) {
             console.log("User verified redirecting...");
-            req.session.user = user.username;
+
+            req.session.user = username;
             console.log("session user is current user");
+
             res.redirect('/dashboard');
 
         } else {layout: "main",
             console.log("User not verified redirecting to login");
+
             res.render('login', { layout: "main", title: "Login", error: 'Invalid Credentials'});
 
         }
     } catch (error) {
         console.log("Error during login:", error);
+
         res.render('login', { layout: "main", title: "Login", error: error.message});
     }
 });
