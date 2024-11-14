@@ -47,33 +47,52 @@ router.get('/login', (req, res) => {
 });
 
 // Login route (POST)
+// router.post('/login', async (req, res) => {
+//     try {
+//         const { username, password } = req.body;
+//         const user = await User.findOne({ where: { username }});
+//         console.log("user found", user);
+
+//         if (user && await user.validPassword(password)) {
+//             console.log("User verified redirecting...");
+
+//             req.session.user = username;
+//             console.log("session user is current user");
+
+//             res.redirect('/dashboard');
+
+//         } else {layout: "main",
+//             console.log("User not verified redirecting to login");
+
+//             res.render('login', { layout: "main", title: "Login", error: 'Invalid Credentials'});
+
+//         }
+//     } catch (error) {
+//         console.log("Error during login:", error);
+
+//         res.render('login', { layout: "main", title: "Login", error: error.message});
+//     }
+// });
+
 router.post('/login', async (req, res) => {
+    console.log("Login POST route hit");  // Log to verify route access
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ where: { username }});
-        console.log("user found", user);
 
         if (user && await user.validPassword(password)) {
-            console.log("User verified redirecting...");
-
             req.session.user = username;
-            console.log("session user is current user");
-
             res.redirect('/dashboard');
-
-        } else {layout: "main",
-            console.log("User not verified redirecting to login");
-
-            res.render('login', { layout: "main", title: "Login", error: 'Invalid Credentials'});
-
         }
-    } catch (error) {
-        console.log("Error during login:", error);
-
-        res.render('login', { layout: "main", title: "Login", error: error.message});
+        else {
+            console.log("error");
+        }
     }
-});
-
+        catch (error) {
+            console.log(error);
+        }
+    }
+);
 // Dashboard route (protected)
 router.get('/dashboard', isAuthenticated, async (req, res) => {
     try {
